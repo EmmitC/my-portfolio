@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js"></script>
+
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<style>
+    :root {
+        --primary-bg: #f4f4f4;
+        --primary-color: #333;
+        --button-bg: #ff5722;
+        --button-hover-bg: #e64a19;
+        --text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .text-shadow {
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--primary-bg);
+        color: var(--primary-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        position: relative;
+    }
+
+
+
+
+
+    body::before {
+        content: '';
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        background-size: cover;
+        background-position: center;
+
+        opacity: 0.1;
+    }
+
+    header.hero {
+        height: 100vh;
+        /* Keep the same hero section height */
+        padding: 10px;
+        background-image: url("images/wmf4pf98d4l61.png");
+        background-size: cover;
+        /* Ensures the background covers the entire header */
+        background-position: center;
+        /* Centers the image */
+        background-repeat: no-repeat;
+        /* Prevents the image from repeating */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /*color: white;*/
+        z-index: -1;
+        /* Optional: Adjust text color to stand out on the image */
+        /* Optional: Center text inside the section */
+    }
+
+
+
+
+
+
+    .hero h1 {
+        font-size: 4rem;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        margin-right: 20px;
+
+        /* Shadow effect for text readability */
+    }
+
+
+
+
+    .hero h2 {
+        font-size: 2rem;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+
+        /* Shadow effect for text readability */
+    }
+
+
+
+
+    .hero p {
+        font-size: 1.5rem;
+        margin: 20px 0;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        /* Shadow effect for text readability */
+    }
+
+
+
+    main {
+        position: relative;
+        z-index: 1;
+    }
+
+
+    .cta-button {
+        background-color: #ff5722;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: background-color 0.3s ease;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        /* Shadow effect for text readability */
+    }
+
+    .cta-button:hover {
+        background-color: #e64a19;
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    nav ul li {
+        display: inline;
+        margin-right: 1rem;
+    }
+
+    nav ul li a {
+        color: olive;
+        text-decoration: none;
+    }
+
+    nav ul li a:hover {
+        text-decoration: underline;
+        color: #f39c12;
+    }
+
+    button {
+        background-color: #000000;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+
+    }
+
+    button:hover {
+        background-color: gray;
+        color: #000000;
+    }
+
+    section {
+        padding: 2rem;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.6s ease-in-out;
+        z-index: 1;
+    }
+
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    footer {
+        text-align: center;
+        padding: 1rem;
+        background-color: #222;
+        color: #fff;
+        position: relative;
+        width: 100%;
+        bottom: 0;
+    }
+
+    .icon {
+        width: 50px;
+        height: 50px;
+        transition: transform 0.3s ease;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .icon:hover {
+        transform: scale(1.1);
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        position: relative;
+    }
+
+    .project-item {
+        background-color: #eee;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        /* Shadow effect for text readability */
+        position: relative;
+    }
+
+    .project-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+        background-color: #333;
+        color: #fff;
+
+    }
+
+    body.dark-mode header {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    body.dark-mode nav ul li a {
+        color: orangered;
+    }
+
+    body.dark-mode footer {
+        background-color: #444;
+    }
+
+    /* img {
+        max-width: 100%;
+        /* Ensures images don’t overflow their container */
+    /*height: auto;
+        /* Keeps the aspect ratio intact */
+    /* display: block;
+
+        /* Removes extra whitespace below the image */
+    /*}*/
+
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2em;
+            position: relative;
+        }
+
+        .icon {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            /* Centers icons horizontally */
+            align-items: center;
+            /* Centers icons vertically */
+            flex-wrap: wrap;
+            /* Allows icons to wrap on smaller screens */
+            gap: 20px;
+            /* Adds spacing between icons */
+            padding: 20px;
+            /* Adds padding around the icons */
+            width: 50%;
+            /* Ensures container takes full width */
+            height: 50%;
+            /* Ensures container takes full height */
+            margin-right: 50px;
+            /* Adjusts space between logos */
+            position: relative;
+        }
+
+        .logo-container a img {
+            width: 50px;
+            /* Set a uniform width for all icons */
+            height: 50px;
+            /* Set a uniform height for all icons */
+            padding-bottom: 20px;
+            /* Optional: Adjust spacing if needed */
+        }
+
+
+
+
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        position: relative;
+    }
+
+    form div {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    form input,
+    form textarea {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        position: relative;
+    }
+
+    form button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ff5722;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #e64a19;
+    }
+
+
+    /* 3D Canvas Styling */
+    #threejs-section {
+        width: 100%;
+        height: 400px;
+    }
+
+    #3d-canvas {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h2>Hi</h2>
+            <h1>I'm Emmit Christopher</h1>
+            <h2>and I'm a Developer</h2>
+            <nav>
+                <ul>
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact Me</a></li>
+                </ul>
+            </nav>
+            <button id="darkModeToggle">Switch Dark Mode</button>
+            <div class="hero-image"></div>
+        </div>
+    </header>
+
+    <main>
+        <section id="about">
+            <div style="text-align: center;">
+                <h2>About Me</h2>
+                <!--<img src="images/Me.jpg">-->
+
+                <p>I am Emmit Christopher Ebau, a tech enthusiast currently pursuing a Bachelor's Degree in AI and
+                    Machine
+                    Learning at Isbat University, Main Campus.</p>
+                <p>I code in HTML, CSS, C++, and am currently learning C and Python.</p>
+                <p>During my free time(and to feed my curiosity),I mess around with code</p>
+                <p>to to hone my skills, Im also a gamer, a songwriter and a producer</p>
+                <p></p>
+            </div>
+
+
+            <div style="text-align: justify;">
+                <div class="logo-container">
+                    <div style="text-align: center;">
+                        <img src="images/html-5-logo.png" style="padding-bottom:20px;">
+                    </div>
+                    <!--   <img src="path_to_cpp_logo.png" alt="C++ Logo" style="width: 50px; height: auto;">
+                </a>  C++ custom logo -->
+                    <div style="text-align: center;">
+                        <img src="images/c- (1).png" style="padding-bottom:40px;">
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/programmer.png" style="padding-bottom:40px;">
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/python.png" style="padding-bottom:40px;">
+                    </div>
+
+                    <div style="text-align: center;">
+                        <img src="images/java-script.png" style="padding-bottom:40px;">
+                    </div>
+
+                    <div style="text-align: center;">
+                        <img src="images/mysql.png" style="padding-bottom:40px;">
+                    </div>
+
+                    <div style="text-align: center;">
+                        <img src="images/coding-language.png" style="padding-bottom:40px;">
+                    </div>
+                    <!--The standar way to add an icon i class tag fab library fa-(name of the icon) and the size-->
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D Golf Ball Animation Section -->
+        <section id="threejs-section">
+            <canvas id="3d-canvas"></canvas>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <img src="project1.jpg" alt="Project 1" class="project-image">
+                    <h3>Project 1</h3>
+                    <p>My first project was in Html</p>
+                </div>
+                <div class="project-item">
+                    <img src="project2.jpg" alt="Project 2" class="project-image">
+                    <h3>Project 2</h3>
+                    <p>Description of project 2...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me:</h2><!--Illl be back to try fix some random ass shit here about the image sizing-->
+            <div class="logo-container">
+                <!-- Mail Icon -->
+                <a href="mailto:emmitchristopher@outlook.com" target="_blank">
+                    <i class="fas fa-envelope fa-3x"></i> <!-- Font Awesome email icon with size 3x -->
+                </a>
+
+                <!-- GitHub Icon -->
+                <a href="https://github.com/EmmitC" target="_blank">
+                    <i class="fab fa-github fa-3x"></i> <!-- Font Awesome GitHub icon with size 3x -->
+                </a>
+
+                <!-- LinkedIn Icon -->
+                <a href="https://linkedin.com/in/EmmitC" target="_blank">
+                    <i class="fab fa-linkedin fa-3x"></i> <!-- Font Awesome LinkedIn icon with size 3x -->
+                </a>
+
+                <!-- Telegram Icon -->
+                <a href="https://t.me/EmmitChristopher" target="_blank">
+                    <i class="fab fa-telegram-plane fa-3x"></i> <!-- Font Awesome Telegram icon with size 3x -->
+                </a>
+            </div>
+
+
+            <form action="https://formspree.io/your-email" method="POST">
+                <div>
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+        </section>
+        </form>>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Emmit's Portfolio</p>
+    </footer>
+
+
+</body>
+<script>
+    // Dark mode toggle functionality
+    const toggle = document.getElementById('darkModeToggle');
+
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+
+        // Change background image based on the mode
+        if (document.body.classList.contains('dark-mode')) {
+            document.body.style.backgroundImage = "url('images/wmf4pf98d4l61.png')";
+        } else {
+            document.body.style.backgroundImage = "url('images/website-html-code-browser-view-printed-white-paper-closeup-view.jpg')";
+        }
+    });
+
+    // Scroll visibility check for sections
+    const sections = document.querySelectorAll('section');
+
+    function checkVisibility() {
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.8) {
+                section.classList.add('visible');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', checkVisibility);
+    checkVisibility();  // Check visibility initially
+
+</script>
+
+</html>
